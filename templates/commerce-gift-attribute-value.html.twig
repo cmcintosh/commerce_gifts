@@ -1,0 +1,23 @@
+{#
+/**
+ * @file
+ *
+ * Default template for gift attribute values.
+ *
+ * Available variables:
+ * - attributes: HTML attributes for the wrapper.
+ * - gift_attribute_value: The rendered gift attribute value fields.
+ *   Use 'gift_attribute_value' to print them all, or print a subset such as
+ *   'gift_attribute_value.name'. Use the following code to exclude the
+ *   printing of a given field:
+ *   @code
+ *   {{ gift_attribute_value|without('name') }}
+ *   @endcode
+ * - gift_attribute_value_entity: The gift attribute value entity.
+ *
+ * @ingroup themeable
+ */
+#}
+<div{{ attributes }}>
+  {{- gift_attribute_value -}}
+</div>

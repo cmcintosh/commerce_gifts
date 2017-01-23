@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - commerce_gift
+id: commerce_gift.variations
+field_name: variations
+entity_type: commerce_gift
+type: entity_reference
+settings:
+  target_type: commerce_gift_variation
+module: core
+locked: true
+cardinality: -1
+translatable: false
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

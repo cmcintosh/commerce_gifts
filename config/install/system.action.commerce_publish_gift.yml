@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - commerce_gift
+id: commerce_publish_gift
+label: 'Publish gift'
+type: commerce_gift
+plugin: commerce_publish_gift
+configuration: {  }

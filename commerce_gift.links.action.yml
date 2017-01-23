@@ -1,0 +1,23 @@
+entity.commerce_gift.add_page:
+  route_name: entity.commerce_gift.add_page
+  title: 'Add gift'
+  appears_on:
+    - entity.commerce_gift.collection
+
+entity.commerce_gift_attribute.add_form:
+  route_name: entity.commerce_gift_attribute.add_form
+  title: 'Add gift attribute'
+  appears_on:
+    - entity.commerce_gift_attribute.collection
+
+entity.commerce_gift_type.add_form:
+  route_name: entity.commerce_gift_type.add_form
+  title: 'Add gift type'
+  appears_on:
+    - entity.commerce_gift_type.collection
+
+entity.commerce_gift_variation_type.add_form:
+  route_name: entity.commerce_gift_variation_type.add_form
+  title: 'Add gift variation type'
+  appears_on:
+    - entity.commerce_gift_variation_type.collection

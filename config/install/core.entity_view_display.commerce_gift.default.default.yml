@@ -1,0 +1,36 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - commerce_gift.commerce_gift_type.default
+    - field.field.commerce_gift.default.body
+    - field.field.commerce_gift.default.stores
+    - field.field.commerce_gift.default.variations
+  module:
+    - commerce_gift
+    - text
+    - user
+id: commerce_gift.default.default
+targetEntityType: commerce_gift
+bundle: default
+mode: default
+content:
+  body:
+    type: text_default
+    weight: 0
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+  variations:
+    type: commerce_gift_add_to_cart
+    weight: 1
+    label: hidden
+    settings:
+      default_quantity: '1'
+      combine: true
+      show_quantity: false
+    third_party_settings: {  }
+hidden:
+  created: true
+  stores: true
+  uid: true

@@ -1,0 +1,35 @@
+<?php
+
+/**
+* implements hook_schema.
+*/
+function commerce_gift_schema() {
+
+  $schema['commerce_gift_order'] = [
+    'description' => 'Tracks orders that have gifts in them'.
+    'fields' => [
+      'order_id' => [
+        'type' => 'int',
+        'description' => 'Original order that started the gift process.',
+      ],
+      'gift_order_id' => [
+        'type' => 'int',
+        'description' => 'Order id of the order created to represent the gift.'
+      ],
+      'first_name' => [
+        'type' => 'varchar',
+        'length' => 255,
+      ],
+      'last_name' => [
+        'type' => 'varchar',
+        'length' => 255,
+      ],
+      'email' => [
+        'type' => 'varchar',
+        'length' => 255,
+      ]
+    ]
+  ];
+
+  return $schema;
+}

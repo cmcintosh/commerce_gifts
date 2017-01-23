@@ -1,0 +1,24 @@
+{#
+/**
+ * @file
+ *
+ * Default gift template.
+ *
+ * Available variables:
+ * - attributes: HTML attributes for the wrapper.
+ * - gift: The rendered gift fields.
+ *   Use 'gift' to print them all, or print a subset such as
+ *   'gift.title'. Use the following code to exclude the
+ *   printing of a given field:
+ *   @code
+ *   {{ gift|without('title') }}
+ *   @endcode
+ * - gift_entity: The gift entity.
+ * - gift_url: The gift URL.
+ *
+ * @ingroup themeable
+ */
+#}
+<article{{ attributes }}>
+  {{- gift|without('variation_attributes') -}}
+</article>

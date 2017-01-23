@@ -1,0 +1,4 @@
+'administer commerce_gift_type':
+  title: 'Administer gift types'
+  description: 'Maintain the types of gifts available and the fields that are associated with those types.'
+  'restrict access': TRUE

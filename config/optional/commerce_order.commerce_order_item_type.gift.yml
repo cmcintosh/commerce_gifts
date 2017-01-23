@@ -1,0 +1,11 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - commerce_gift
+label: 'Gift'
+id: gift
+purchasableEntityType: commerce_gift_variation
+orderType: default
+traits: {  }

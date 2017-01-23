@@ -1,0 +1,19 @@
+/**
+ * @file
+ * Styles for the rendered gift attributes element.
+ */
+
+.gift--rendered-attribute .form-item {
+  display: inline-block;
+  vertical-align: middle;
+  margin: 2px;
+}
+.gift--rendered-attribute label.option {
+  display: inline-block;
+}
+.gift--rendered-attribute .form-radio {
+  display: none;
+}
+.gift--rendered-attribute__selected ~ label.option {
+  border: 1px solid;
+}

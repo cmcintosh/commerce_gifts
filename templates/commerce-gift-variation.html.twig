@@ -1,0 +1,24 @@
+{#
+/**
+ * @file
+ *
+ * Default template for gift variations.
+ *
+ * Available variables:
+ * - attributes: HTML attributes for the wrapper.
+ * - gift_variation: The rendered gift variation fields.
+ *   Use 'gift_variation' to print them all, or print a subset such as
+ *   'gift_variation.title'. Use the following code to exclude the
+ *   printing of a given field:
+ *   @code
+ *   {{ gift_variation|without('title') }}
+ *   @endcode
+ * - gift_variation_entity: The gift variation entity.
+ * - url: The gift URL.
+ *
+ * @ingroup themeable
+ */
+#}
+<div{{ attributes }}>
+  {{- gift_variation -}}
+</div>

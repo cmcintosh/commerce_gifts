@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - commerce_gift
+id: commerce_unpublish_gift
+label: 'Unpublish gift'
+type: commerce_gift
+plugin: commerce_unpublish_gift
+configuration: {  }
