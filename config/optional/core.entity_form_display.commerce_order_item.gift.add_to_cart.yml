@@ -10,7 +10,7 @@ dependencies:
       - commerce_gift
   module:
     - commerce_gift
-id: commerce_order_item.default.commerce_gift_add_to_cart
+id: commerce_order_item.gift.commerce_gift_add_to_cart
 targetEntityType: commerce_order_item
 bundle: gift
 mode: commerce_gift_add_to_cart

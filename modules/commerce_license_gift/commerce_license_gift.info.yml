@@ -1,4 +1,4 @@
-name: Commerce Gift
+name: Commerce License Gift
 type: module
 description: 'Defines the Gift entity and associated features.'
 package: Commerce
@@ -7,5 +7,7 @@ dependencies:
   - commerce
   - commerce:commerce_price
   - commerce:commerce_store
+  - commerce_license
+  - commerce_gift
   - path
   - text

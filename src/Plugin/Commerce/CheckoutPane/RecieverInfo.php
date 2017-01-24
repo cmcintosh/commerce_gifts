@@ -2,13 +2,17 @@
 
 namespace Drupal\commerce_gift\Plugin\Commerce\CheckoutPane;
 
-use Drupal\commerce_checkout\Plugin\Commerce\CheckoutFlow\CheckoutFlowInterface;
+use Drupal\Core\Url;
+use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Entity\Entity\EntityFormDisplay;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Render\RendererInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\commerce_checkout\Plugin\Commerce\CheckoutPane\CheckoutPaneBase;
+use Drupal\commerce_checkout\Plugin\Commerce\CheckoutPane\CheckoutPaneInterface;
+use Drupal\commerce_checkout\Plugin\Commerce\CheckoutFlow\CheckoutFlowInterface;
 
 /**
  * Provides the information pane for sending gifts.
@@ -78,6 +82,16 @@ class RecieverInfo extends CheckoutPaneBase implements CheckoutPaneInterface, Co
    */
   public function buildPaneSummary() {
     $summary = '';
+    $params = Url::fromUri("internal:" . \Drupal::request()->getRequestUri() )->getRouteParameters();
+    $default = $this->getDefaultValues($params);
+
+    if ($default) {
+      $summary = t('Sending a gift to %name, at %email', [
+        '%name' => $default->first_name . ' ' . $default->last_name,
+        '%email' => $default->email
+      ]);
+    }
+
     return $summary;
   }
 
@@ -93,6 +107,13 @@ class RecieverInfo extends CheckoutPaneBase implements CheckoutPaneInterface, Co
 
     // We need to find the default values.
     $defaults = $this->getDefaultValues($form_state->getValues());
+    $pane_form['#prefix'] = '<div id="gift-getter-wrapper"><div class="gift-message"></div>';
+    $pane_form['#suffix'] = '</div>';
+    $params = Url::fromUri("internal:" . \Drupal::request()->getRequestUri() )->getRouteParameters();
+    $pane_form['commerce_order'] = [
+      '#type' => 'value',
+      '#value' => $params['commerce_order']
+      ];
     $pane_form['email'] = [
       '#type' => 'email',
       '#title' => t('Email'),
@@ -120,23 +141,19 @@ class RecieverInfo extends CheckoutPaneBase implements CheckoutPaneInterface, Co
   /**
    * {@inheritdoc}
    */
-  public function submitPaneForm(array &$pane_form, FormStateInterface $form_state, array &$complete_form) {
-    if (!($this->orderHasGift())) {
-      // no need to continue
-      return;
-    }
-    $values = $form_state->getValues();
-    $params = Url::fromUri("internal:" . \Drupal::request()->getRequestUri() )->getRouteParameters();
+  public function submitPaneForm(array &$pane_form, FormStateInterface $form_state, array &$complete_form = []) {
+    $values = $form_state->getValues()['reciever_information'];
     $data = [
-      'order_id' => $params['commerce_order'],
-      'email' => $values['email'],
-      'first_name' => $values['first_name'],
-      'last_name' => $values['last_name']
+      'order_id'    => $values['commerce_order'],
+      'email'       => $values['email'],
+      'first_name'  => $values['first_name'],
+      'last_name'   => $values['last_name']
     ];
     db_merge('commerce_gift_order')
       ->key(array('order_id' => $data['order_id']))
       ->fields($data)
       ->execute();
+
   }
 
   /**
@@ -148,7 +165,7 @@ class RecieverInfo extends CheckoutPaneBase implements CheckoutPaneInterface, Co
     $defaults = null;
     $default_entity = null;
 
-    if ( $sku ) {
+    if ( $params['commerce_order'] ) {
       $query = \Drupal::database()
         ->select('commerce_gift_order', 'go');
       $query->condition('go.order_id', $params['commerce_order'], '=' );
@@ -159,7 +176,7 @@ class RecieverInfo extends CheckoutPaneBase implements CheckoutPaneInterface, Co
         'email'
       ]);
       $result = $query->execute()->fetchAllAssoc('order_id');
-      return isset($result[$sku]) ? $result[$sku] : null;
+      return isset($result[$params['commerce_order']]) ? $result[$params['commerce_order']] : null;
     }
   }
 

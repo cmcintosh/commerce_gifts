@@ -396,7 +396,7 @@ class GiftVariation extends ContentEntityBase implements GiftVariationInterface 
       ->setLabel(t('SKU'))
       ->setDescription(t('The unique, machine-readable identifier for a variation.'))
       ->setRequired(TRUE)
-      ->addConstraint('GiftVariationSku')
+      // ->addConstraint('GiftVariationSku')
       ->setSetting('display_description', TRUE)
       ->setDisplayOptions('view', [
         'label' => 'hidden',

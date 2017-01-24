@@ -1,0 +1,21 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - commerce_gift.commerce_gift_type.license
+    - field.storage.commerce_gift.body
+  module:
+    - text
+id: commerce_gift.license.body
+field_name: body
+entity_type: commerce_gift
+bundle: license
+label: Body
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  display_summary: false
+field_type: text_with_summary

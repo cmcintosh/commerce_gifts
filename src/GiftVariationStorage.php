@@ -5,6 +5,7 @@ namespace Drupal\commerce_gift;
 use Drupal\commerce\CommerceContentEntityStorage;
 use Drupal\commerce_gift\Entity\GiftInterface;
 use Drupal\commerce_gift\Event\FilterVariationsEvent;
+use Drupal\commerce_gift\Event\FilterVariationEvent;
 use Drupal\commerce_gift\Event\GiftEvents;
 use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Database\Connection;
@@ -104,9 +105,9 @@ class GiftVariationStorage extends CommerceContentEntityStorage implements GiftV
 
     $enabled_variations = $this->loadMultiple($result);
     // Allow modules to apply own filtering (based on date, stock, etc).
-    $event = new FilterVariationsEvent($gift, $enabled_variations);
-    $this->eventDispatcher->dispatch(GiftEvents::FILTER_VARIATIONS, $event);
-    $enabled_variations = $event->getVariations();
+    // $event = new FilterVariationsEvent($gift, $enabled_variations);
+    // $this->eventDispatcher->dispatch(GiftEvents::FILTER_VARIATIONS, $event);
+    // $enabled_variations = $event->getVariations();
 
     return $enabled_variations;
   }

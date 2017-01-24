@@ -6,7 +6,7 @@
 function commerce_gift_schema() {
 
   $schema['commerce_gift_order'] = [
-    'description' => 'Tracks orders that have gifts in them'.
+    'description' => 'Tracks orders that have gifts in them',
     'fields' => [
       'order_id' => [
         'type' => 'int',

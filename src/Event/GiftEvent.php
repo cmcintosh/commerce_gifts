@@ -2,41 +2,41 @@
 
 namespace Drupal\commerce_gift\Event;
 
-use Drupal\commerce_gift\Entity\GiftAttributeValueInterface;
+use Drupal\commerce_gift\Entity\GiftInterface;
 use Symfony\Component\EventDispatcher\Event;
 
 /**
- * Defines the gift attribute value event.
+ * Defines the gift event.
  *
  * @see \Drupal\commerce_gift\Event\GiftEvents
  */
-class GiftAttributeValueEvent extends Event {
+class GiftEvent extends Event {
 
   /**
-   * The gift attribute value.
+   * The gift.
    *
-   * @var \Drupal\commerce_gift\Entity\GiftAttributeValueInterface
+   * @var \Drupal\commerce_gift\Entity\GiftInterface
    */
-  protected $attributeValue;
+  protected $gift;
 
   /**
-   * Constructs a new GiftAttributeValueEvent.
+   * Constructs a new GiftEvent.
    *
-   * @param \Drupal\commerce_gift\Entity\GiftAttributeValueInterface $attribute_value
-   *   The gift attribute value.
+   * @param \Drupal\commerce_gift\Entity\GiftInterface $gift
+   *   The gift.
    */
-  public function __construct(GiftAttributeValueInterface $attribute_value) {
-    $this->attributeValue = $attribute_value;
+  public function __construct(GiftInterface $gift) {
+    $this->gift = $gift;
   }
 
   /**
-   * Gets the gift attribute value.
+   * Gets the gift.
    *
-   * @return \Drupal\commerce_gift\Entity\GiftAttributeValueInterface
-   *   The gift attribute value.
+   * @return \Drupal\commerce_gift\Entity\GiftInterface
+   *   The gift.
    */
-  public function getAttributeValue() {
-    return $this->attributeValue;
+  public function getGift() {
+    return $this->gift;
   }
 
 }

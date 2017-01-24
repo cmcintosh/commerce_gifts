@@ -2,7 +2,7 @@ entity.commerce_gift.collection:
   path: '/admin/commerce/gifts'
   defaults:
     _entity_list: 'commerce_gift'
-    _title: 'gifts'
+    _title: 'Gifts'
   requirements:
     _permission: 'administer commerce_gift'
 
@@ -10,7 +10,7 @@ entity.commerce_gift_attribute.collection:
   path: '/admin/commerce/gift-attributes'
   defaults:
     _entity_list: 'commerce_gift_attribute'
-    _title: 'gift attributes'
+    _title: 'Gift attributes'
   requirements:
     _permission: 'administer commerce_gift_attribute'
 
@@ -18,7 +18,7 @@ entity.commerce_gift_type.collection:
   path: '/admin/commerce/config/gift-types'
   defaults:
     _entity_list: 'commerce_gift_type'
-    _title: 'gift types'
+    _title: 'Gift types'
   requirements:
     _permission: 'administer commerce_gift_type'
 
@@ -26,6 +26,6 @@ entity.commerce_gift_variation_type.collection:
   path: '/admin/commerce/config/gift-variation-types'
   defaults:
     _entity_list: 'commerce_gift_variation_type'
-    _title: 'gift variation types'
+    _title: 'Gift variation types'
   requirements:
     _permission: 'administer commerce_gift_type'

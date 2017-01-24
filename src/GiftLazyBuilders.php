@@ -56,8 +56,17 @@ class GiftLazyBuilders {
 
     /** @var \Drupal\commerce_gift\Entity\GiftInterface $gift */
     $gift = $this->entityTypeManager->getStorage('commerce_gift')->load($gift_id);
-    $order_item = $order_item_storage->createFromPurchasableEntity($gift->getDefaultVariation());
+    $variation = $gift->getDefaultVariation();
+    $values = [
+      'type' => 'gift',
+      'title' => $variation->getOrderItemTitle,
+      'purchased_entity' => $variation,
+      'unit_price' => $variation->getPrice()
+    ];
+    $order_item = $order_item_storage->create($values);
+
     $form_state_additions = [
+      'product' => $gift,
       'gift' => $gift,
       'view_mode' => $view_mode,
       'settings' => [

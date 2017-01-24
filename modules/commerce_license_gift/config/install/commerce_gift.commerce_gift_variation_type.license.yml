@@ -1,0 +1,8 @@
+langcode: en
+status: true
+dependencies: {  }
+id: license
+label: License
+orderItemType: gift
+generateTitle: true
+traits: {  }

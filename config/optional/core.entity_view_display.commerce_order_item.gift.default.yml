@@ -10,7 +10,7 @@ dependencies:
       - commerce_gift
 id: commerce_order_item.gift.default
 targetEntityType: commerce_order_item
-bundle: default
+bundle: gift
 mode: default
 content:
   total_price:

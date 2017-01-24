@@ -1,15 +1,12 @@
 langcode: en
 status: true
 dependencies:
-  config:
-    - commerce_gift.commerce_gift_variation_type.default
-    - field.field.commerce_gift_variation.default.product
   module:
     - commerce_price
     - inline_entity_form
-id: commerce_gift_variation.default.default
+id: commerce_gift_variation.license.default
 targetEntityType: commerce_gift_variation
-bundle: default
+bundle: license
 mode: default
 content:
   price:

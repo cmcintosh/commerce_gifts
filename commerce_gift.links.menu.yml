@@ -1,23 +1,23 @@
 entity.commerce_gift.collection:
-  title: 'gifts'
+  title: 'Gifts'
   route_name: 'entity.commerce_gift.collection'
   parent: 'commerce.admin_commerce'
   description: 'Manage your gifts.'
 
 entity.commerce_gift_attribute.collection:
-  title: 'gift attributes'
+  title: 'Gift attributes'
   route_name: 'entity.commerce_gift_attribute.collection'
   parent: 'commerce.admin_commerce'
   description: 'Manage your gift attributes.'
 
 entity.commerce_gift_type.collection:
-  title: 'gift types'
+  title: 'Gift types'
   route_name: 'entity.commerce_gift_type.collection'
   parent: 'commerce.configuration'
   description: 'Manage your gift types.'
 
 entity.commerce_gift_variation_type.collection:
-  title: 'gift variation types'
+  title: 'Gift variation types'
   route_name: 'entity.commerce_gift_variation_type.collection'
   parent: 'commerce.configuration'
   description: 'Manage your gift variation types.'

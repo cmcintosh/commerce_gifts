@@ -14,7 +14,7 @@ commerce_gift.commerce_gift_type.*:
 
 commerce_gift.commerce_gift_variation_type.*:
   type: commerce_config_entity_bundle
-  label: 'gift variation type'
+  label: 'Gift variation type'
   mapping:
     orderItemType:
       type: string
@@ -25,7 +25,7 @@ commerce_gift.commerce_gift_variation_type.*:
 
 commerce_gift.commerce_gift_attribute.*:
   type: config_entity
-  label: 'gift attribute'
+  label: 'Gift attribute'
   mapping:
     id:
       type: string

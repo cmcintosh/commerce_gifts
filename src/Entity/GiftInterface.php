@@ -6,6 +6,7 @@ use Drupal\commerce_store\Entity\EntityStoresInterface;
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\EntityChangedInterface;
 use Drupal\user\EntityOwnerInterface;
+use Drupal\commerce_product\Entity\ProductInterface;
 
 /**
  * Defines the interface for gifts.

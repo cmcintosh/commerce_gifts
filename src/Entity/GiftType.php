@@ -19,6 +19,7 @@ use Drupal\commerce\Entity\CommerceBundleEntityBase;
  *   handlers = {
  *     "list_builder" = "Drupal\commerce_gift\GiftTypeListBuilder",
  *     "form" = {
+ *       "default" = "Drupal\commerce_gift\Form\GiftTypeForm",
  *       "add" = "Drupal\commerce_gift\Form\GiftTypeForm",
  *       "edit" = "Drupal\commerce_gift\Form\GiftTypeForm",
  *       "delete" = "Drupal\commerce_gift\Form\GiftTypeDeleteForm"

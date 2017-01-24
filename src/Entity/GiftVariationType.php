@@ -19,6 +19,7 @@ use Drupal\commerce\Entity\CommerceBundleEntityBase;
  *   handlers = {
  *     "list_builder" = "Drupal\commerce_gift\GiftVariationTypeListBuilder",
  *     "form" = {
+ *       "default" = "Drupal\commerce_gift\Form\GiftVariationTypeForm",
  *       "add" = "Drupal\commerce_gift\Form\GiftVariationTypeForm",
  *       "edit" = "Drupal\commerce_gift\Form\GiftVariationTypeForm",
  *       "delete" = "Drupal\commerce_gift\Form\GiftVariationTypeDeleteForm"
