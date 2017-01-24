@@ -375,8 +375,10 @@ function process_gift_order($entity, $record) {
     // Create a new order item.
     $pEntity = $gift_item->getPurchasedEntity();
     if ( is_a($pEntity, 'Drupal\commerce_gift\Entity\GiftVariation') ) {
+      // @TODO: Do this as a plugin maybe to handle a larger number of things.
+      $purchasedTarget = ($pEntity->get('product')->entity) ? $pEntity->get('product')->entity : $pEntity->get('license')->entity;
       $order_item = $orderItemStorage
-        ->createFromPurchasableEntity($pEntity->get('product')->entity);
+        ->createFromPurchasableEntity($purchasedTarget);
       $order_item->setQuantity($gift_item->getQuantity());
       $order_item->save();
       $order->addItem($order_item);
