@@ -102,7 +102,7 @@ class RecieverInfo extends CheckoutPaneBase implements CheckoutPaneInterface, Co
 
     if (!($this->orderHasGift())) {
       // no need to continue
-      return $pane_form;
+      return;
     }
 
     // We need to find the default values.
