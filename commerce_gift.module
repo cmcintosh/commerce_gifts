@@ -55,7 +55,7 @@ function commerce_gift_commerce_order_update(EntityInterface $entity) {
 
   // Checks the order to see if it is complete
   if ($entity->getCompletedTime() > 0) {
-    drupal_set_message('Called Commerce Order Update');
+
     // Checks if this order has a commerce_gift in one of the order items.
     if (has_commerce_gift($entity->getItems())) {
       // Gets the record for this order from the database.
@@ -376,7 +376,10 @@ function process_gift_order($entity, $record) {
     $pEntity = $gift_item->getPurchasedEntity();
     if ( is_a($pEntity, 'Drupal\commerce_gift\Entity\GiftVariation') ) {
       // @TODO: Do this as a plugin maybe to handle a larger number of things.
-      $purchasedTarget = ($pEntity->get('product')->entity) ? $pEntity->get('product')->entity : $pEntity->get('license')->entity;
+      $purchasedTarget = ($pEntity->get('product')->entity) ?
+        $pEntity->get('product')->entity : ($pEntity->get('product')->entity) ?
+        $pEntity->get('license')->entity : ($pEntity->get('subscription')->entity) ?
+        $pEntity->get('subscription')->entity : $pEntity->field_subscription->entity;
       $order_item = $orderItemStorage
         ->createFromPurchasableEntity($purchasedTarget);
       $order_item->setQuantity($gift_item->getQuantity());

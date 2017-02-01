@@ -1,0 +1,8 @@
+langcode: en
+status: true
+dependencies: {  }
+id: subscription
+label: Subscription
+orderItemType: gift
+generateTitle: true
+traits: {  }

@@ -102,7 +102,7 @@ class RecieverInfo extends CheckoutPaneBase implements CheckoutPaneInterface, Co
 
     if (!($this->orderHasGift())) {
       // no need to continue
-      return;
+      return $pane_form;
     }
 
     // We need to find the default values.
@@ -123,16 +123,32 @@ class RecieverInfo extends CheckoutPaneBase implements CheckoutPaneInterface, Co
 
     $pane_form['first_name'] = [
       '#type' => 'textfield',
-      '#title' => t('First Name'),
+      '#title' => t('Recipient'),
       '#required' => TRUE,
       '#default_value' => $defaults->first_name
     ];
 
-    $pane_form['last_name'] = [
-      '#type' => 'textfield',
-      '#title' => t('Last Name'),
+    $pane_form['message'] = [
+      '#type' => 'textarea',
+      '#title' => t('Message'),
       '#required' => TRUE,
-      '#default_value' => $defaults->last_name
+      '#default_value' => $defaults->message
+    ];
+
+    $pane_form['immediately'] = [
+      '#type' => 'radios',
+      '#title' => t('Send a Gift'),
+      '#options' => [
+        0 => t('Immediately'),
+        1 => t('On the selected date')
+      ],
+      '#default_value' => $defaults->immediately
+    ];
+
+    $pane_form['send_date'] = [
+      '#type' => 'date',
+      '#title' => t('Send a gift'),
+      '#default_value' => $defaults->message
     ];
 
     return $pane_form;
@@ -147,7 +163,8 @@ class RecieverInfo extends CheckoutPaneBase implements CheckoutPaneInterface, Co
       'order_id'    => $values['commerce_order'],
       'email'       => $values['email'],
       'first_name'  => $values['first_name'],
-      'last_name'   => $values['last_name']
+      'message'     => $values['message'],
+      'send_date'   => isset($values['send_date']) ? strtotime($values['send_date']) : time()
     ];
     db_merge('commerce_gift_order')
       ->key(array('order_id' => $data['order_id']))
@@ -172,8 +189,9 @@ class RecieverInfo extends CheckoutPaneBase implements CheckoutPaneInterface, Co
       $query->fields('go', [
         'order_id',
         'first_name',
-        'last_name',
-        'email'
+        'message',
+        'email',
+        'send_date'
       ]);
       $result = $query->execute()->fetchAllAssoc('order_id');
       return isset($result[$params['commerce_order']]) ? $result[$params['commerce_order']] : null;

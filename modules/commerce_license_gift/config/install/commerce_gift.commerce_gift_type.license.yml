@@ -2,7 +2,7 @@ langcode: en
 status: true
 dependencies: {  }
 id: license
-label: Gift
+label: License
 description: ''
 variationType: license
 injectVariationFields: true

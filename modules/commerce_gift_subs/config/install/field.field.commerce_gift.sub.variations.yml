@@ -1,0 +1,23 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - commerce_gift.commerce_gift_type.sub
+    - commerce_gift.commerce_gift_variation_type.sub
+    - field.storage.commerce_gift.variations
+id: commerce_gift.default.variations
+field_name: variations
+entity_type: commerce_gift
+bundle: sub
+label: Variations
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:commerce_gift_variation'
+  handler_settings:
+    target_bundles:
+      - sub
+field_type: entity_reference

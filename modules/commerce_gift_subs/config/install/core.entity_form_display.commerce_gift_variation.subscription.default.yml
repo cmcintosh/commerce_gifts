@@ -1,0 +1,44 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - commerce_price
+    - inline_entity_form
+id: commerce_gift_variation.sub.default
+targetEntityType: commerce_gift_variation
+bundle: subscription
+mode: default
+content:
+  price:
+    type: commerce_price_default
+    weight: 0
+    settings: {  }
+    third_party_settings: {  }
+  product:
+    type: inline_entity_form_complex
+    weight: 0
+    settings:
+      form_mode: default
+      override_labels: false
+      label_singular: ''
+      label_plural: ''
+      allow_new: true
+      allow_existing: false
+      match_operator: CONTAINS
+    third_party_settings: {  }
+  sku:
+    type: string_textfield
+    weight: -4
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    weight: 99
+    settings:
+      display_label: true
+    third_party_settings: {  }
+hidden:
+  created: true
+  uid: true

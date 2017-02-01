@@ -1,0 +1,13 @@
+name: Commerce Subscription Gift
+type: module
+description: 'Defines the Gift entity and associated features.'
+package: Commerce
+core: 8.x
+dependencies:
+  - commerce
+  - commerce:commerce_price
+  - commerce:commerce_store
+  - commerce_sub
+  - commerce_gift
+  - path
+  - text

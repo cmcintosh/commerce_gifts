@@ -2,26 +2,22 @@ langcode: en
 status: true
 dependencies:
   config:
+    - commerce_gift.commerce_gift_type.default
     - commerce_gift.commerce_gift_variation_type.default
-    - commerce_product.commerce_product_variation_type.default
-    - field.storage.commerce_gift_variation.product
+    - field.storage.commerce_gift.variations
 id: commerce_gift_variation.default.product
 field_name: product
-entity_type: commerce_gift_variation
+entity_type: commerce_gift
 bundle: default
-label: Product
+label: Variations
 description: ''
 required: true
-translatable: true
+translatable: false
 default_value: {  }
 default_value_callback: ''
 settings:
   handler: 'default:commerce_product_variation'
   handler_settings:
     target_bundles:
-      default: default
-    sort:
-      field: _none
-    auto_create: false
-    auto_create_bundle: ''
+      - default
 field_type: entity_reference

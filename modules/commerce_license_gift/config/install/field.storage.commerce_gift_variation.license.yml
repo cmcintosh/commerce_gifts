@@ -3,7 +3,6 @@ status: true
 dependencies:
   module:
     - commerce_gift
-    - commerce_license
 id: commerce_gift_variation.license
 field_name: license
 entity_type: commerce_gift_variation
@@ -11,9 +10,9 @@ type: entity_reference
 settings:
   target_type: commerce_license_variation
 module: core
-locked: false
-cardinality: 1
-translatable: true
+locked: true
+cardinality: -1
+translatable: false
 indexes: {  }
 persist_with_no_fields: false
 custom_storage: false

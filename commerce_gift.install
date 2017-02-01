@@ -24,6 +24,15 @@ function commerce_gift_schema() {
         'type' => 'varchar',
         'length' => 255,
       ],
+      'message' => [
+        'type' => 'text'
+      ],
+      'send_date' => [
+        'type' => 'int'
+      ],
+      'sent' => [
+        'type' => 'int'
+      ],
       'email' => [
         'type' => 'varchar',
         'length' => 255,
@@ -32,4 +41,20 @@ function commerce_gift_schema() {
   ];
 
   return $schema;
+}
+
+function commerce_gift_update_8001() {
+  $spec =[];
+
+  $spec['message'] = [
+    'type' => 'text',
+  ];
+
+  $spec['send_date'] = [
+    'type' => 'int',
+  ];
+
+ $schema = Database::getConnection()->schema();
+ $schema->addField('commerce_gift_order', 'message', $spec['message']);
+ $schema->addField('commerce_gift_order', 'send_date', $spec['send_date']);
 }

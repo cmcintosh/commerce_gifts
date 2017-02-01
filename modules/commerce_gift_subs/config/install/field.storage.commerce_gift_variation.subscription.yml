@@ -3,12 +3,12 @@ status: true
 dependencies:
   module:
     - commerce_gift
-id: commerce_gift_variation.variations
-field_name: variations
+id: commerce_gift_variation.sub
+field_name: subscription
 entity_type: commerce_gift_variation
 type: entity_reference
 settings:
-  target_type: commerce_product_variation
+  target_type: commerce_sub_variation
 module: core
 locked: true
 cardinality: -1
