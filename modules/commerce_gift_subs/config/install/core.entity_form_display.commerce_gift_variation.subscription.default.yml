@@ -4,9 +4,9 @@ dependencies:
   module:
     - commerce_price
     - inline_entity_form
-id: commerce_gift_variation.sub.default
-targetEntityType: commerce_gift_variation
-bundle: subscription
+id: commerce_gift_variation.subscription.default
+targetEntityType: commerce_sub_variation
+bundle: default
 mode: default
 content:
   price:
@@ -14,7 +14,7 @@ content:
     weight: 0
     settings: {  }
     third_party_settings: {  }
-  product:
+  subscription:
     type: inline_entity_form_complex
     weight: 0
     settings:

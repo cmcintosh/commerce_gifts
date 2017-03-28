@@ -4,12 +4,12 @@ dependencies:
   config:
     - commerce_gift.commerce_gift_type.default
     - commerce_gift.commerce_gift_variation_type.default
-    - field.storage.commerce_gift.variations
-id: commerce_gift_variation.default.product
+    - field.storage.commerce_gift_variation.product
+id: commerce_gift.default.variations
 field_name: product
-entity_type: commerce_gift
+entity_type: commerce_gift_variation
 bundle: default
-label: Variations
+label: Product
 description: ''
 required: true
 translatable: false

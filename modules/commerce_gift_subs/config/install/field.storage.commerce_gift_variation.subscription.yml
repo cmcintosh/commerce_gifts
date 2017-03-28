@@ -3,7 +3,7 @@ status: true
 dependencies:
   module:
     - commerce_gift
-id: commerce_gift_variation.sub
+id: commerce_gift_variation.subscription
 field_name: subscription
 entity_type: commerce_gift_variation
 type: entity_reference

@@ -3,10 +3,8 @@ status: true
 dependencies:
   config:
     - commerce_gift.commerce_gift_variation_type.default
-    - field.field.commerce_gift_variation.default.product
   module:
     - commerce_price
-    - inline_entity_form
 id: commerce_gift_variation.default.default
 targetEntityType: commerce_gift_variation
 bundle: default
@@ -17,18 +15,6 @@ content:
     weight: 0
     settings: {  }
     third_party_settings: {  }
-  product:
-    type: inline_entity_form_complex
-    weight: 0
-    settings:
-      form_mode: default
-      override_labels: false
-      label_singular: ''
-      label_plural: ''
-      allow_new: true
-      allow_existing: false
-      match_operator: CONTAINS
-    third_party_settings: {  }
   sku:
     type: string_textfield
     weight: -4
@@ -38,7 +24,7 @@ content:
     third_party_settings: {  }
   status:
     type: boolean_checkbox
-    weight: 99
+    weight: 10
     settings:
       display_label: true
     third_party_settings: {  }

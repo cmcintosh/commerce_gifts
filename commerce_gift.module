@@ -17,6 +17,7 @@ use Drupal\commerce_order\Entity\Order;
 use Drupal\commerce_order\Entity\OrderInterface;
 use Drupal\commerce_order\Entity\OrderItem;
 use Drupal\commerce_order\Entity\OrderItemInterface;
+use Drupal\commerce_price\Price;
 
 /**
  * Implements hook_config_translation_info_alter().
@@ -51,32 +52,25 @@ function commerce_gift_entity_view_display_update(EntityInterface $entity) {
 /**
 * Implements hook_ENTITY_TYPE_update().
 */
-function commerce_gift_commerce_order_update(EntityInterface $entity) {
+function commerce_gift_commerce_order_insert(EntityInterface $entity) {
+  commerce_gift_call_gift_order($entity);
+}
 
+/**
+* Implements hook_ENTITY_TYPE_update().
+*/
+function commerce_gift_commerce_order_update(EntityInterface $entity) {
+  commerce_gift_call_gift_order($entity);
+}
+
+function commerce_gift_call_gift_order(EntityInterface $entity) {
   // Checks the order to see if it is complete
   if ($entity->getCompletedTime() > 0) {
 
     // Checks if this order has a commerce_gift in one of the order items.
     if (has_commerce_gift($entity->getItems())) {
       // Gets the record for this order from the database.
-      $query = \Drupal::database()
-        ->select('commerce_gift_order', 'go');
-      $query->condition('go.order_id', $entity->getOrderNumber(), '=' );
-      $query->fields('go', [
-        'order_id',
-        'gift_order_id',
-        'first_name',
-        'last_name',
-        'email'
-      ]);
-      $result = $query->execute()->fetchAllAssoc('order_id');
-      if (isset($result[$entity->getOrderNumber()])) {
-        $record = $result[$entity->getOrderNumber()];
-        if ($record->gift_order_id < 1) {
-          // need processing.
           process_gift_order($entity, $record);
-        }
-      }
     }
   }
 }
@@ -332,6 +326,7 @@ function has_commerce_gift($items) {
     $purchasedEntity = $item->getPurchasedEntity();
     $string = get_class($purchasedEntity);
     if ( is_a($purchasedEntity, 'Drupal\commerce_gift\Entity\GiftVariation') ) {
+      \Drupal::logger('Commerce Gift')->notice('has a gift in this order.');
       return true;
     }
   }
@@ -342,13 +337,16 @@ function has_commerce_gift($items) {
 * Helper function to create a new $0 order for the gift
 * and assign it to the correct user.
 */
-function process_gift_order($entity, $record) {
+function process_gift_order(EntityInterface $entity) {
 
+  \Drupal::logger('CommerceGift')->notice('Processing gift.');
   // First we need to check if the email for the gift getter exists as a user.
-  $account = user_load_by_mail($record->email);
+  $gift_items = $entity->getItems();
+  $gift_email = $gift_items[0]->get('email')->value;
+  $account = user_load_by_mail($gift_email);
   if ($account == null) {
     // Create a new user account.
-    $account = commerce_gift_create_account($record);
+    $account = commerce_gift_create_account($gift_email);
   }
 
   // Next we need to create the order for this gift getter.
@@ -356,7 +354,7 @@ function process_gift_order($entity, $record) {
     'type' => 'default',
     'uid' => $account->id(),
     'store_id' => $entity->getStoreId(),
-    'mail' => $record->email,
+    'mail' => $gift_email,
     'completed' => time(),
     'created' => time(),
     'changed' => time(),
@@ -368,38 +366,56 @@ function process_gift_order($entity, $record) {
 
   // Next we need to loop through the items from the original order, adding them to the new
   // order.
-  $gift_items = $entity->getItems();
+
   $orderItemStorage = \Drupal::entityTypeManager()
     ->getStorage('commerce_order_item');
+    \Drupal::logger('CommerceGift')->notice('GIFT ORDER ID . ' . $order->id() );
   foreach($gift_items as $gift_item) {
+    \Drupal::logger('CommerceGift')->notice('Processing Item.');
     // Create a new order item.
     $pEntity = $gift_item->getPurchasedEntity();
-    if ( is_a($pEntity, 'Drupal\commerce_gift\Entity\GiftVariation') ) {
+
       // @TODO: Do this as a plugin maybe to handle a larger number of things.
-      $purchasedTarget = ($pEntity->get('product')->entity) ?
-        $pEntity->get('product')->entity : ($pEntity->get('product')->entity) ?
-        $pEntity->get('license')->entity : ($pEntity->get('subscription')->entity) ?
-        $pEntity->get('subscription')->entity : $pEntity->field_subscription->entity;
-      $order_item = $orderItemStorage
-        ->createFromPurchasableEntity($purchasedTarget);
-      $order_item->setQuantity($gift_item->getQuantity());
-      $order_item->save();
-      $order->addItem($order_item);
-    }
+      $fields = array_keys($pEntity->getFields());
+      $purchasedTarget = FALSE;
+      switch(TRUE) {
+        case (in_array('product', $fields)):
+          $purchasedTarget = $pEntity->get('product')->entity;
+        break;
+        case (in_array('license', $fields)):
+          $purchasedTarget = $pEntity->get('license')->entity;
+        break;
+        case (in_array('subscription', $fields)):
+          $purchasedTarget = $pEntity->get('subscription')->entity;
+        break;
+      }
+      if ($purchasedTarget) {
+        $order_item = $orderItemStorage
+          ->createFromPurchasableEntity($purchasedTarget);
+        if ($order_item){
+          $order_item->setQuantity($gift_item->getQuantity());
+          $order_item->save();
+        }
+      }
   }
+  \Drupal::logger('CommerceGift')->notice('Processing Item.');
+  $order->set('state', 'completed');
+  $order->set('completed', time());
   $order->save();
 }
 
 
-function commerce_gift_create_account($values) {
+function commerce_gift_create_account($email) {
+  \Drupal::logger('CommerceGift')->notice('Creating account for gift getter.');
+
   $language = \Drupal::languageManager()->getCurrentLanguage()->getId();
   $user = \Drupal\user\Entity\User::create();
 
 //Mandatory settings
   $user->setPassword('password');
   $user->enforceIsNew();
-  $user->setEmail($values->email);
-  $user->setUsername($values->email);//This username must be unique and accept only a-Z,0-9, - _ @ .
+  $user->setEmail($email);
+  $user->setUsername($email);//This username must be unique and accept only a-Z,0-9, - _ @ .
 
 //Optional settings
   $user->set("init", 'email');

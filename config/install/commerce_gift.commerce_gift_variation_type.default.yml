@@ -3,6 +3,6 @@ status: true
 dependencies: {  }
 id: default
 label: Default
-orderItemType: default
+orderItemType: gift
 generateTitle: true
 traits: {  }

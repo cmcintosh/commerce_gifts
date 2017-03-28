@@ -2,17 +2,16 @@ langcode: en
 status: true
 dependencies:
   config:
-    - commerce_gift.commerce_gift_type.sub
-    - field.field.commerce_gift.sub.body
-    - field.field.commerce_gift.sub.stores
-    - field.field.commerce_gift.sub.variations
+    - commerce_gift.commerce_gift_type.subscription
+    - field.field.commerce_gift.subscription.stores
+    - field.field.commerce_gift.subscription.variations
   module:
     - commerce
     - inline_entity_form
     - path
     - text
 id: commerce_gift.subscription.default
-targetEntityType: commerce_gift
+targetEntityType: commerce_gift_variation
 bundle: subscription
 mode: default
 content:

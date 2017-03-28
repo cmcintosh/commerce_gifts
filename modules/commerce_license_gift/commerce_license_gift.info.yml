@@ -7,7 +7,7 @@ dependencies:
   - commerce
   - commerce:commerce_price
   - commerce:commerce_store
-  - commerce_license
   - commerce_gift
+  - commerce_license
   - path
   - text

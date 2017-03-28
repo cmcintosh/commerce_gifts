@@ -433,6 +433,36 @@ class GiftVariation extends ContentEntityBase implements GiftVariationInterface 
 
     // The price is not required because it's not guaranteed to be used
     // for storage (there might be a price per currency, role, country, etc).
+    $fields['net_price'] = BaseFieldDefinition::create('commerce_price')
+      ->setLabel(t('Net Price'))
+      ->setDescription(t('The variation pre-vat price'))
+      ->setDisplayOptions('view', [
+        'label' => 'above',
+        'type' => 'commerce_price_default',
+        'weight' => 0,
+      ])
+      ->setDisplayOptions('form', [
+        'type' => 'commerce_price_default',
+        'weight' => 0,
+      ])
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE);
+
+    $fields['vat'] = BaseFieldDefinition::create('commerce_price')
+      ->setLabel(t('Vat'))
+      ->setDescription(t('The variation vat amount'))
+      ->setDisplayOptions('view', [
+        'label' => 'above',
+        'type' => 'commerce_price_default',
+        'weight' => 0,
+      ])
+      ->setDisplayOptions('form', [
+        'type' => 'commerce_price_default',
+        'weight' => 0,
+      ])
+      ->setDisplayConfigurable('form', TRUE)
+      ->setDisplayConfigurable('view', TRUE);
+
     $fields['price'] = BaseFieldDefinition::create('commerce_price')
       ->setLabel(t('Price'))
       ->setDescription(t('The variation price'))
@@ -447,6 +477,14 @@ class GiftVariation extends ContentEntityBase implements GiftVariationInterface 
       ])
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);
+
+    $fields['uid'] = BaseFieldDefinition::create('entity_reference')
+      ->setLabel(t('User ID'))
+      ->setDescription(t('The user ID of the node author.'))
+      ->setSettings(array(
+        'target_type' => 'user',
+        'default_value' => 0,
+      ));
 
     $fields['status'] = BaseFieldDefinition::create('boolean')
       ->setLabel(t('Active'))
